@@ -1,6 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { teamMembers } from "@/data/team";
+import { Mail, Phone, MapPin } from "lucide-react";
+
+const Linkedin = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
 import CTA from "@/sections/CTA";
 
 export default function AboutPage() {
@@ -43,7 +64,7 @@ export default function AboutPage() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
           {[
             { title: "Innovation", desc: "Pushing boundaries with next-gen tech." },
             { title: "Scalability", desc: "Systems that grow with your vision." },
@@ -63,8 +84,85 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
+
+        {/* Team Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            Our <span className="text-gradient">Core Team</span>
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Meet the talented individuals behind AZUO, dedicated to pushing the boundaries of technology and innovation.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+          {teamMembers.map((member, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.05 }}
+              className="group p-8 bg-glass border border-white/5 rounded-3xl hover:border-brand-purple/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(168,85,247,0.1)] flex flex-col gap-6 relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-opacity duration-500">
+                <a 
+                  href={member.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-3 bg-white/5 rounded-xl block hover:text-brand-purple transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
+              </div>
+
+              <div className="flex flex-col items-start gap-4">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 flex items-center justify-center text-2xl font-bold text-white border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                  {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white group-hover:text-brand-purple transition-colors duration-300">
+                    {member.name}
+                  </h3>
+                  <p className="text-brand-blue font-medium text-sm tracking-wider uppercase">
+                    {member.role}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+              <div className="space-y-4 w-full">
+                <div className="flex items-center gap-4 text-sm text-gray-400 group/item">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover/item:text-brand-blue transition-colors">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <span className="truncate">{member.email}</span>
+                </div>
+                <div className="flex items-center gap-4 text-sm text-gray-400 group/item">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover/item:text-brand-purple transition-colors">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <span>{member.phone}</span>
+                </div>
+                <div className="flex items-start gap-4 text-sm text-gray-400 group/item">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover/item:text-brand-blue transition-colors">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <span className="leading-relaxed">{member.address}</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
       <CTA />
     </div>
   );
 }
+

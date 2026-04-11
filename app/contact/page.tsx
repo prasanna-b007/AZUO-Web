@@ -46,15 +46,6 @@ export default function ContactPage() {
             </div>
 
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-glass rounded-xl text-brand-blue">
-                  <MapPin className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold mb-1">Our Headquarters</h4>
-                  <p className="text-gray-400">123 Innovation Drive<br />Tech Valley, SF 94103</p>
-                </div>
-              </div>
               
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-glass rounded-xl text-brand-purple">
@@ -62,7 +53,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold mb-1">Call Us</h4>
-                  <p className="text-gray-400">+1 (555) 123-4567<br />Mon-Fri, 9am-6pm PST</p>
+                  <p className="text-gray-400">9345857136<br />Mon-Fri, 9am-6pm PST</p>
+
                 </div>
               </div>
               

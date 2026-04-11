@@ -71,15 +71,6 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} AZUO. All rights reserved.
-          </p>
-          <div className="flex gap-6 mt-4 md:mt-0 text-sm text-gray-500">
-            <span>Built with Next.js & Tailwind</span>
-          </div>
-        </div>
       </div>
     </footer>
   );
