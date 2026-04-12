@@ -19,9 +19,9 @@ const products = [
 
 export default function Products() {
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0a0a0a] to-[#0d0d0d]" id="products">
+    <section className="py-10 bg-gradient-to-b from-[#0a0a0a] to-[#0d0d0d]" id="products">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -35,7 +35,7 @@ export default function Products() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
             Our <span className="text-gradient">Products</span>
           </motion.h2>
@@ -63,7 +63,7 @@ export default function Products() {
               <span className="px-3 py-1 rounded-full bg-brand-purple/10 text-brand-purple text-xs font-semibold uppercase tracking-wider mb-6 inline-block">
                 {product.tag}
               </span>
-              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-brand-purple transition-colors">
+              <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-brand-purple transition-colors">
                 {product.title}
               </h3>
               <p className="text-gray-400 mb-8 leading-relaxed">
@@ -71,7 +71,7 @@ export default function Products() {
               </p>
               <Link 
                 href="/contact" 
-                className="flex items-center gap-2 text-white font-medium group-hover:gap-4 transition-all"
+                className="flex items-center gap-2 text-foreground font-medium group-hover:gap-4 transition-all"
               >
                 Learn More <ArrowRight className="w-5 h-5 text-brand-purple" />
               </Link>

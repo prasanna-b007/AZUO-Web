@@ -33,7 +33,7 @@ export default function AboutPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto mb-20"
         >
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+          <h1 className="text-4xl md:text-7xl font-bold tracking-tight mb-6">
             Who <span className="text-gradient">We Are</span>
           </h1>
           <p className="text-xl text-gray-400">
@@ -92,7 +92,7 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
             Our <span className="text-gradient">Core Team</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
@@ -122,11 +122,11 @@ export default function AboutPage() {
               </div>
 
               <div className="flex flex-col items-start gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 flex items-center justify-center text-2xl font-bold text-white border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 flex items-center justify-center text-2xl font-bold text-foreground border border-white/10 group-hover:scale-110 transition-transform duration-500">
                   {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-brand-purple transition-colors duration-300">
+                  <h3 className="text-2xl font-bold text-foreground group-hover:text-brand-purple transition-colors duration-300">
                     {member.name}
                   </h3>
                   <p className="text-brand-blue font-medium text-sm tracking-wider uppercase">

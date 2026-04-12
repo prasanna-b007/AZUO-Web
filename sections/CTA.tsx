@@ -8,7 +8,7 @@ import { Magnetic } from "@/components/ui/Magnetic";
 
 export default function CTA() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-10 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-brand-purple/5 to-[#0a0a0a]" />
       
       {/* Decorative elements */}
@@ -20,7 +20,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-5xl md:text-7xl font-bold tracking-tighter mb-8"
+          className="text-3xl md:text-7xl font-bold tracking-tighter mb-8"
         >
           Ready to Transform{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-purple">

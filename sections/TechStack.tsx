@@ -24,7 +24,7 @@ export default function TechStack() {
   const marqueeItems = allTechs.map((tech, i) => (
     <div 
       key={i} 
-      className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/[0.03] border border-white/5 text-gray-400 hover:text-white hover:border-brand-purple/50 transition-all duration-300 group/item"
+      className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/[0.03] border border-white/5 text-gray-400 hover:text-foreground hover:border-brand-purple/50 transition-all duration-300 group/item"
     >
       <div className="text-brand-purple group-hover/item:scale-110 transition-transform">
         {tech.icon}
@@ -34,7 +34,7 @@ export default function TechStack() {
   ));
 
   return (
-    <section className="py-24 bg-[#0a0a0a] border-y border-white/5 relative overflow-hidden">
+    <section className="py-10 bg-background border-y border-white/5 relative overflow-hidden">
       <div className="absolute inset-0 bg-brand-blue/5 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-10">
@@ -43,7 +43,7 @@ export default function TechStack() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
             Our <span className="text-gradient">Tech Stack</span>
           </motion.h2>

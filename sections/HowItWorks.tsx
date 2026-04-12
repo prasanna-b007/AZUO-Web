@@ -27,14 +27,14 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-24 bg-[#0a0a0a]" id="how-it-works">
+    <section className="py-10 bg-background" id="how-it-works">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
             How We <span className="text-gradient">Work</span>
           </motion.h2>
@@ -59,10 +59,10 @@ export default function HowItWorks() {
               transition={{ delay: idx * 0.1 }}
               className="relative p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-brand-blue/50 transition-all"
             >
-              <div className="text-5xl font-black text-white/5 absolute top-4 right-4 group-hover:text-brand-blue/20 transition-colors">
+              <div className="text-5xl font-black text-foreground/5 absolute top-4 right-4 group-hover:text-brand-blue/20 transition-colors">
                 {step.num}
               </div>
-              <h3 className="text-xl font-bold text-white mb-4 relative z-10">{step.title}</h3>
+              <h3 className="text-xl font-bold text-foreground mb-4 relative z-10">{step.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed relative z-10">{step.desc}</p>
               
               {idx < steps.length - 1 && (

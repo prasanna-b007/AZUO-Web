@@ -9,15 +9,15 @@ import { containerVariants, itemVariants } from "@/lib/animations";
 
 export default function Services({ showTitle = true }: { showTitle?: boolean }) {
   return (
-    <section className="py-24 relative" id="services">
+    <section className="py-10 relative" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {showTitle && (
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+              className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
             >
               Our <span className="text-gradient">Services</span>
             </motion.h2>
@@ -48,10 +48,10 @@ export default function Services({ showTitle = true }: { showTitle?: boolean }) 
             >
               <SpotlightCard className="p-8 h-full bg-glass border-white/5 hover:border-white/10 transition-all duration-300 group">
                 <div className="relative z-10 flex flex-col h-full">
-                  <div className="mb-6 p-4 bg-[#0a0a0a] rounded-xl inline-block w-fit border border-white/10 group-hover:scale-110 group-hover:border-brand-blue/50 transition-all duration-300">
+                  <div className="mb-6 p-4 bg-background rounded-xl inline-block w-fit border border-white/10 group-hover:scale-110 group-hover:border-brand-blue/50 transition-all duration-300">
                     {service.icon}
                   </div>
-                  <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-brand-blue transition-colors">{service.title}</h3>
+                  <h3 className="text-2xl font-semibold text-foreground mb-3 group-hover:text-brand-blue transition-colors">{service.title}</h3>
                   <p className="text-gray-400 flex-grow leading-relaxed">{service.description}</p>
                 </div>
               </SpotlightCard>

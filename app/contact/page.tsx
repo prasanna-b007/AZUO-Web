@@ -3,18 +3,39 @@
 import { motion } from "framer-motion";
 import { Send, MapPin, Phone, Mail } from "lucide-react";
 import { useState } from "react";
+import { CONTACT_EMAIL } from "@/lib/mail";
 
 export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("submitting");
-    // Simulate frontend-only submission
-    setTimeout(() => {
-      setFormStatus("success");
-      setTimeout(() => setFormStatus("idle"), 3000);
-    }, 1500);
+    
+    try {
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = Object.fromEntries(formData.entries());
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        setTimeout(() => setFormStatus("idle"), 5000);
+        (e.target as HTMLFormElement).reset();
+      } else {
+        const error = await response.json();
+        alert(error.message || "Failed to send message. Please try again.");
+        setFormStatus("idle");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("Something went wrong. Please try again later.");
+      setFormStatus("idle");
+    }
   };
 
   return (
@@ -52,8 +73,8 @@ export default function ContactPage() {
                   <Phone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Call Us</h4>
-                  <p className="text-gray-400">9345857136<br />Mon-Fri, 9am-6pm PST</p>
+                  <h4 className="text-foreground font-semibold mb-1">Call Us</h4>
+                  <p className="text-gray-400">9345857136<br />Mon-Fri, 9am-6pm IST</p>
 
                 </div>
               </div>
@@ -63,8 +84,8 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-1">Email Us</h4>
-                  <p className="text-gray-400">hello@azuo.com<br />support@azuo.com</p>
+                  <h4 className="text-foreground font-semibold mb-1">Email Us</h4>
+                  <p className="text-gray-400">{CONTACT_EMAIL}</p>
                 </div>
               </div>
             </div>
@@ -76,11 +97,11 @@ export default function ContactPage() {
             className="bg-glass p-8 rounded-2xl border border-white/5 shadow-2xl relative"
           >
             {formStatus === "success" && (
-              <div className="absolute inset-0 bg-[#0a0a0a]/90 backdrop-blur-sm rounded-2xl flex items-center justify-center z-20 flex-col text-center p-8">
+              <div className="absolute inset-0 bg-background/90 backdrop-blur-sm rounded-2xl flex items-center justify-center z-20 flex-col text-center p-8">
                 <div className="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-4">
                   <Send className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
                 <p className="text-gray-400">Thank you for reaching out. We will get back to you shortly.</p>
               </div>
             )}
@@ -92,8 +113,9 @@ export default function ContactPage() {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
                     placeholder="John Doe"
                   />
                 </div>
@@ -102,8 +124,9 @@ export default function ContactPage() {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -114,8 +137,9 @@ export default function ContactPage() {
                 <input
                   type="text"
                   id="subject"
+                  name="subject"
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
                   placeholder="Project Inquiry"
                 />
               </div>
@@ -124,9 +148,10 @@ export default function ContactPage() {
                 <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">Message</label>
                 <textarea
                   id="message"
+                  name="message"
                   required
                   rows={5}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors resize-none"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
@@ -134,7 +159,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={formStatus === "submitting"}
-                className="w-full py-4 rounded-lg bg-white text-black font-semibold flex items-center justify-center gap-2 hover:bg-brand-purple hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
+                className="w-full py-4 rounded-lg bg-white text-black font-semibold flex items-center justify-center gap-2 hover:bg-brand-purple hover:text-foreground transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 {formStatus === "submitting" ? "Sending..." : "Send Message"}
                 <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function AboutSection() {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0a0a0a]">
+    <section className="py-10 relative overflow-hidden bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
@@ -40,7 +40,7 @@ export default function AboutSection() {
                   <Target className="w-6 h-6 text-brand-purple" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Our Mission</h4>
+                  <h4 className="text-foreground font-bold text-lg mb-1">Our Mission</h4>
                   <p className="text-gray-500 text-sm">To simplify global business operations through accessible, high-performance AI systems.</p>
                 </div>
               </div>
@@ -49,7 +49,7 @@ export default function AboutSection() {
                   <Eye className="w-6 h-6 text-brand-pink" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Our Vision</h4>
+                  <h4 className="text-foreground font-bold text-lg mb-1">Our Vision</h4>
                   <p className="text-gray-500 text-sm">To set the gold standard for intelligent digital transformation internationally.</p>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export default function AboutSection() {
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 text-white font-semibold group border-b border-white/10 pb-1 hover:border-brand-blue transition-all"
+              className="inline-flex items-center gap-2 text-foreground font-semibold group border-b border-white/10 pb-1 hover:border-brand-blue transition-all"
             >
               Read Full Story <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -78,7 +78,7 @@ export default function AboutSection() {
                
                <div className="absolute inset-0 flex items-center justify-center p-12 text-center">
                   <div className="space-y-4">
-                    <div className="text-7xl font-black text-white/10 group-hover:text-white/20 transition-colors">AZUO</div>
+                    <div className="text-7xl font-black text-foreground/10 group-hover:text-foreground/20 transition-colors">AZUO</div>
                     <p className="text-brand-purple font-mono text-sm tracking-[0.3em] uppercase">Intelligence Squared</p>
                   </div>
                </div>
@@ -90,7 +90,7 @@ export default function AboutSection() {
                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                className="absolute -top-6 -right-6 p-6 bg-glass border border-white/10 rounded-2xl backdrop-blur-2xl shadow-2xl"
             >
-               <div className="text-3xl font-bold text-white mb-1">98%</div>
+               <div className="text-3xl font-bold text-foreground mb-1">98%</div>
                <div className="text-[10px] text-gray-400 font-mono uppercase tracking-widest">Efficiency Gain</div>
             </motion.div>
           </motion.div>

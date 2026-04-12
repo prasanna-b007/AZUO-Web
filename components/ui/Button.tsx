@@ -34,11 +34,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     
     const variants = {
       primary: "bg-white text-black hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] border border-transparent",
-      secondary: "bg-white/5 backdrop-blur-md text-white border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)]",
-      gradient: "bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink text-white border-0 shadow-lg shadow-brand-purple/20 hover:scale-[1.03] active:scale-[0.97]",
-      outline: "bg-transparent border-2 border-white/10 text-white hover:border-white/40 hover:bg-white/5",
-      glass: "bg-white/5 backdrop-blur-xl text-white border border-white/10 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]",
-      ghost: "bg-transparent text-white hover:bg-white/5 rounded-xl border border-transparent hover:border-white/5"
+      secondary: "bg-white/5 backdrop-blur-md text-foreground border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)]",
+      gradient: "bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink text-foreground border-0 shadow-lg shadow-brand-purple/20 hover:scale-[1.03] active:scale-[0.97]",
+      outline: "bg-transparent border-2 border-white/10 text-foreground hover:border-white/40 hover:bg-white/5",
+      glass: "bg-white/5 backdrop-blur-xl text-foreground border border-white/10 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]",
+      ghost: "bg-transparent text-foreground hover:bg-white/5 rounded-xl border border-transparent hover:border-white/5"
     };
 
     const sizes = {

@@ -28,14 +28,14 @@ const models = [
 
 export default function BusinessModel() {
   return (
-    <section className="py-24 bg-[#0a0a0a]" id="business-model">
+    <section className="py-10 bg-background" id="business-model">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
             How We <span className="text-gradient">Deliver Value</span>
           </motion.h2>
@@ -64,7 +64,7 @@ export default function BusinessModel() {
                 {model.icon}
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white mb-2">{model.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">{model.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{model.desc}</p>
               </div>
             </motion.div>

@@ -57,7 +57,7 @@ export const teamMembers = [
   },
   {
     name: "Prasanna B",
-    email: "prasannabalaji0110@gmail.com",
+    email: "azuo.global@gmail.com",
     phone: "9790353211",
     address: "322/4, Gandhinagar, Kuranguchavadi, Narasathipatti ( PO ), Salem.636004.",
     linkedin: "https://www.linkedin.com/in/prasanna-b-a44414338/",

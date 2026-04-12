@@ -29,7 +29,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0a0a0a]">
+    <section className="py-10 relative overflow-hidden bg-background">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-brand-purple/5 rounded-full blur-[120px] pointer-events-none" />
 
@@ -46,7 +46,7 @@ export default function Process() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
             From Concept to <span className="text-gradient">Intelligence</span>
           </motion.h2>
@@ -79,7 +79,7 @@ export default function Process() {
                   {step.icon}
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-brand-blue transition-colors">
+                <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-brand-blue transition-colors">
                   {step.title}
                 </h3>
                 
@@ -87,14 +87,14 @@ export default function Process() {
                   {step.desc}
                 </p>
 
-                <div className="flex items-center gap-2 text-white/40 group-hover:text-white transition-colors cursor-pointer group/btn">
+                <div className="flex items-center gap-2 text-foreground/40 group-hover:text-foreground transition-colors cursor-pointer group/btn">
                   <span className="text-sm font-medium">Learn more</span>
                   <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                 </div>
               </div>
 
               {/* Step Number Decoration */}
-              <div className="absolute -top-6 -right-6 text-8xl font-bold text-white/[0.02] pointer-events-none select-none">
+              <div className="absolute -top-6 -right-6 text-8xl font-bold text-foreground/[0.02] pointer-events-none select-none">
                 0{idx + 1}
               </div>
             </motion.div>

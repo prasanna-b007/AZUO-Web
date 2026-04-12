@@ -12,7 +12,7 @@ export default function ServicesPage() {
   return (
     <div className="pt-32 pb-0">
       <div className="text-center max-w-3xl mx-auto mb-10 px-4">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+        <h1 className="text-4xl md:text-7xl font-bold tracking-tight mb-6">
           Our <span className="text-gradient">Services</span>
         </h1>
         <p className="text-xl text-gray-400">
@@ -23,7 +23,7 @@ export default function ServicesPage() {
       <Services showTitle={false} />
       <Features />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 border-t border-white/5 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-white/5 relative overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-purple/20 to-transparent" />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -60,7 +60,7 @@ export default function ServicesPage() {
                   <div className={cn("w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform")}>
                     {item.icon}
                   </div>
-                  <span className="text-lg font-semibold text-gray-200 group-hover:text-white transition-colors">{item.label}</span>
+                  <span className="text-lg font-semibold text-gray-200 group-hover:text-foreground transition-colors">{item.label}</span>
                 </motion.div>
               ))}
             </div>

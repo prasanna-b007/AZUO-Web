@@ -50,7 +50,7 @@ const stats = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0a0a0a]" id="about">
+    <section className="py-10 relative overflow-hidden bg-background" id="about">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-brand-purple/10 rounded-full blur-[120px] pointer-events-none" />
       
@@ -62,7 +62,7 @@ export default function WhyChooseUs() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-8">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">
               What Makes <span className="text-gradient">Us Different</span>
             </h2>
             <p className="text-lg text-gray-400 mb-12 leading-relaxed max-w-xl">
@@ -80,10 +80,10 @@ export default function WhyChooseUs() {
                   className="flex flex-col gap-3 group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-purple group-hover:bg-brand-purple group-hover:text-white transition-all duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-brand-purple group-hover:bg-brand-purple group-hover:text-foreground transition-all duration-300">
                       {reason.icon}
                     </div>
-                    <span className="text-lg font-semibold text-white">{reason.text}</span>
+                    <span className="text-lg font-semibold text-foreground">{reason.text}</span>
                   </div>
                   <p className="text-sm text-gray-500 ml-13 leading-relaxed">{reason.desc}</p>
                 </motion.div>
@@ -92,7 +92,7 @@ export default function WhyChooseUs() {
           </motion.div>
           
           <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
@@ -113,7 +113,7 @@ export default function WhyChooseUs() {
                   
                   <div className="h-full flex flex-col justify-end">
                     <p className="text-sm font-medium text-gray-400 mb-1 uppercase tracking-widest">{stat.label}</p>
-                    <h4 className="text-4xl sm:text-5xl font-bold text-white mb-2">{stat.value}</h4>
+                    <h4 className="text-4xl sm:text-5xl font-bold text-foreground mb-2">{stat.value}</h4>
                     <p className="text-sm text-gray-500 font-medium">{stat.sub}</p>
                   </div>
                   

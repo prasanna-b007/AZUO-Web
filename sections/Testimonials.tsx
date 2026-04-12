@@ -22,15 +22,15 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 bg-[#050505] relative border-y border-white/5">
+    <section className="py-10 bg-[#050505] relative border-y border-white/5">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-blue/50 to-transparent opacity-50" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
             Client Success
           </motion.h2>
@@ -55,7 +55,7 @@ export default function Testimonials() {
               </div>
               <p className="text-gray-300 italic mb-6 leading-relaxed">"{test.quote}"</p>
               <div>
-                <p className="text-white font-semibold">{test.author}</p>
+                <p className="text-foreground font-semibold">{test.author}</p>
                 <p className="text-gray-500 text-sm">{test.role}</p>
               </div>
             </motion.div>

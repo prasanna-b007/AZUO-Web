@@ -9,7 +9,7 @@ import { Magnetic } from "@/components/ui/Magnetic";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-[80vh] flex items-center justify-center pt-24 pb-12 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-blue/20 rounded-full blur-[120px]" />
@@ -40,7 +40,7 @@ export default function Hero() {
               src="/AZUO-logo.png"
               alt="AZUO Logo Large"
               fill
-              className="object-contain scale-[1.5] drop-shadow-[0_0_30px_rgba(14,165,233,0.4)]"
+              className="object-contain scale-125 md:scale-150 drop-shadow-[0_0_30px_rgba(14,165,233,0.4)]"
             />
           </motion.div>
         </motion.div>
@@ -51,7 +51,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 max-w-4xl"
+          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 max-w-4xl leading-[1.1]"
         >
           Build <span className="text-gradient">Smarter</span> Scale Faster with AI
         </motion.h1>

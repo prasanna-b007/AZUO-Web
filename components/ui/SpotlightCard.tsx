@@ -27,7 +27,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   return (
     <div
       className={cn(
-        "group relative rounded-3xl border border-white/10 bg-[#0a0a0a] overflow-hidden transition-all duration-500",
+        "group relative rounded-3xl border border-white/10 bg-background overflow-hidden transition-all duration-500",
         className
       )}
       onMouseMove={handleMouseMove}
