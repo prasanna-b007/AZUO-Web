@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { teamMembers } from "@/data/team";
 import { Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 
 const Linkedin = ({ className }: { className?: string }) => (
   <svg
@@ -122,8 +123,13 @@ export default function AboutPage() {
               </div>
 
               <div className="flex flex-col items-start gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue/20 to-brand-purple/20 flex items-center justify-center text-2xl font-bold text-foreground border border-white/10 group-hover:scale-110 transition-transform duration-500">
-                  {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-brand-purple/50 transition-all duration-500 relative overflow-hidden">
+                  <Image
+                    src="/AZUO-logo.png"
+                    alt="AZUO Logo"
+                    fill
+                    className="object-contain p-3 group-hover:scale-110 transition-transform duration-500"
+                  />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-foreground group-hover:text-brand-purple transition-colors duration-300">
