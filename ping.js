@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const https = require('https');
 
 // Render automatically provides this environment variable containing the public URL

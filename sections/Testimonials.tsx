@@ -53,7 +53,7 @@ export default function Testimonials() {
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-300 italic mb-6 leading-relaxed">"{test.quote}"</p>
+              <p className="text-gray-300 italic mb-6 leading-relaxed">&quot;{test.quote}&quot;</p>
               <div>
                 <p className="text-foreground font-semibold">{test.author}</p>
                 <p className="text-gray-500 text-sm">{test.role}</p>

@@ -1,76 +1,64 @@
-import Link from "next/link";
 import Image from "next/image";
-import { Mail, Globe, MessageCircle, Briefcase } from "lucide-react";
+import Link from "next/link";
+import { Mail, MapPin } from "lucide-react";
 import { CONTACT_EMAIL } from "@/lib/mail";
+
+const footerLinks = [
+  { label: "About", href: "/#about" },
+  { label: "Solutions", href: "/#solutions" },
+  { label: "Industries", href: "/#industries" },
+  { label: "Technology", href: "/#technology" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-background pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <div className="relative w-8 h-8">
-                <Image
-                  src="/AZUO-logo.png"
-                  alt="AZUO Logo"
-                  fill
-                  className="object-contain"
-                />
+    <footer className="border-t border-slate-200 bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+          <div>
+            <Link href="/" className="flex items-center gap-3">
+              <Image src="/AZUO-logo.png" alt="AZUO Technologies" width={42} height={42} className="rounded-md" />
+              <div>
+                <p className="text-xl font-semibold tracking-tight text-slate-950">AZUO Technologies</p>
+                <p className="text-xs font-medium uppercase tracking-[0.22em] text-slate-500">Climate tech and AI</p>
               </div>
-              <span className="text-xl font-bold tracking-tighter text-foreground">AZUO</span>
             </Link>
-            <p className="text-gray-400 max-w-sm">
-              Building Scalable Digital Solutions. We engineer premium digital experiences for forward-thinking brands.
+            <p className="mt-5 max-w-md text-sm leading-7 text-slate-600">
+              Building blockchain, AI, SaaS, and enterprise software systems for real-world
+              operational and compliance challenges.
             </p>
-            <div className="flex gap-4 mt-6">
-              <Link href="#" className="text-gray-400 hover:text-foreground transition-colors">
-                <MessageCircle className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-foreground transition-colors">
-                <Globe className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-foreground transition-colors">
-                <Briefcase className="w-5 h-5" />
-              </Link>
-              <Link href={`mailto:${CONTACT_EMAIL}`} className="text-gray-400 hover:text-foreground transition-colors">
-                <Mail className="w-5 h-5" />
-              </Link>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Navigate</h3>
+            <div className="mt-5 grid gap-3">
+              {footerLinks.map((link) => (
+                <Link key={link.label} href={link.href} className="text-sm font-medium text-slate-700 hover:text-brand-green">
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
-          
+
           <div>
-            <h3 className="text-foreground font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-brand-blue transition-colors">Home</Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-brand-blue transition-colors">About Us</Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-gray-400 hover:text-brand-blue transition-colors">Services</Link>
-              </li>
-              <li>
-                <Link href="/portfolio" className="text-gray-400 hover:text-brand-blue transition-colors">Portfolio</Link>
-              </li>
-            </ul>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Reach us</h3>
+            <div className="mt-5 grid gap-4 text-sm text-slate-700">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 hover:text-brand-green">
+                <Mail className="h-4 w-4" />
+                {CONTACT_EMAIL}
+              </a>
+              <div className="flex items-center gap-3">
+                <MapPin className="h-4 w-4" />
+                India
+              </div>
+            </div>
           </div>
-          
-          <div>
-            <h3 className="text-foreground font-semibold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/privacy" className="text-gray-400 hover:text-brand-purple transition-colors">Privacy Policy</Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-gray-400 hover:text-brand-purple transition-colors">Terms of Service</Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-brand-purple transition-colors">Contact</Link>
-              </li>
-            </ul>
-          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-slate-200 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} AZUO Technologies. All rights reserved.</p>
+          <p>Website: www.azuo.in</p>
         </div>
       </div>
     </footer>

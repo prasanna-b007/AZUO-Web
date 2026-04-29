@@ -1,156 +1,131 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { cn } from "@/utils/utils";
-import { Button } from "@/components/ui/Button";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
+  { name: "About", href: "/#about" },
+  { name: "Solutions", href: "/#solutions" },
+  { name: "Industries", href: "/#industries" },
+  { name: "Technology", href: "/#technology" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const { scrollYProgress } = useScroll();
+  const borderGlow = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.7, 1],
+    [
+      "linear-gradient(120deg, rgba(57,217,159,0.45), rgba(37,99,235,0.15), rgba(255,255,255,0.18))",
+      "linear-gradient(120deg, rgba(37,99,235,0.28), rgba(57,217,159,0.35), rgba(15,23,42,0.1))",
+      "linear-gradient(120deg, rgba(22,143,99,0.35), rgba(91,91,214,0.2), rgba(15,23,42,0.12))",
+      "linear-gradient(120deg, rgba(57,217,159,0.32), rgba(37,99,235,0.24), rgba(15,23,42,0.12))",
+    ],
+  );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pointer-events-none pt-4 px-4 sm:pt-6">
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className={cn(
-          "pointer-events-auto w-full max-w-7xl transition-all duration-500 ease-in-out border overflow-hidden",
-          isOpen ? "bg-black/90 backdrop-blur-2xl rounded-3xl px-6 py-2 border-white/20" : 
-          (scrolled 
-            ? "bg-black/60 backdrop-blur-xl rounded-full px-5 md:px-8 py-2.5 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)] border-white/20" 
-            : "bg-white/5 backdrop-blur-md rounded-[2.5rem] px-6 md:px-10 py-5 border-white/10")
-        )}
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+      <motion.nav
+        style={{ background: borderGlow }}
+        className="mx-auto max-w-7xl rounded-xl p-px shadow-[0_18px_60px_rgba(2,8,23,0.16)]"
       >
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-3 group pointer-events-auto">
-            <motion.div
-              animate={{ 
-                rotate: scrolled ? 0 : [0, 10, -10, 0],
-              }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity, 
-                ease: "linear" 
-              }}
-              className="relative w-11 h-11"
-            >
-              <Image
-                src="/AZUO-logo.png"
-                alt="AZUO Logo"
-                fill
-                className="object-contain drop-shadow-[0_0_8px_rgba(14,165,233,0.5)] scale-110"
-              />
-            </motion.div>
-            <span className="text-2xl md:text-4xl font-bold tracking-tighter text-white">
-              AZUO
-            </span>
+        <div
+          className={`rounded-[11px] px-4 transition duration-500 ${
+            scrolled || isOpen
+              ? "bg-white/95 shadow-lg shadow-slate-950/5 backdrop-blur-2xl"
+              : "bg-[#071315]/72 text-white backdrop-blur-2xl"
+          }`}
+        >
+        <div className="flex h-16 items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+            <Image src="/AZUO-logo.png" alt="AZUO Technologies" width={38} height={38} className="rounded-md" />
+            <div className="leading-tight">
+              <p className={`text-lg font-semibold tracking-tight ${scrolled || isOpen ? "text-slate-950" : "text-white"}`}>
+                AZUO
+              </p>
+              <p className={`text-[11px] font-medium uppercase tracking-[0.22em] ${scrolled || isOpen ? "text-slate-500" : "text-slate-300"}`}>
+                Technologies
+              </p>
+            </div>
           </Link>
 
+          <div className="hidden items-center gap-1 md:flex">
+            {links.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`rounded-md px-3 py-2 text-sm font-semibold transition duration-300 ${
+                  scrolled
+                    ? "text-slate-700 hover:bg-emerald-50 hover:text-slate-950"
+                    : "text-white/90 hover:bg-white/12 hover:text-white"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
           <div className="hidden md:block">
-            <LayoutGroup>
-              <div className="flex items-center gap-1">
-                {links.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={cn(
-                      "relative px-4 py-2 text-base font-medium transition-all duration-300 rounded-full",
-                      pathname === link.href 
-                        ? "text-white" 
-                        : "text-gray-400 hover:text-white"
-                    )}
-                  >
-                    {pathname === link.href && (
-                      <motion.div
-                        layoutId="nav-pill"
-                        className="absolute inset-0 bg-white/10 rounded-full z-[-1]"
-                        transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                      />
-                    )}
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-            </LayoutGroup>
-          </div>
-
-          <div className="hidden md:flex items-center">
-             <Link href="/contact">
-               <Button variant="gradient" size="md">
-                 Let&apos;s Talk
-               </Button>
-             </Link>
-          </div>
-
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-400 hover:text-white focus:outline-none transition-colors"
+            <Link
+              href="/contact"
+              className={`inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold transition ${
+                scrolled ? "bg-slate-950 text-white hover:bg-slate-800" : "bg-brand-teal text-[#061010] hover:bg-[#45e0a7]"
+              }`}
             >
-              {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
-            </button>
+              Contact Us
+            </Link>
           </div>
+
+          <button
+            type="button"
+            aria-label="Toggle navigation"
+            onClick={() => setIsOpen((value) => !value)}
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-md border md:hidden ${
+              scrolled || isOpen ? "border-slate-200 text-slate-900" : "border-white/15 text-white"
+            }`}
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden overflow-hidden"
-            >
-              <div className="py-6 space-y-1">
-                {links.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      "block px-4 py-3 rounded-2xl text-lg font-medium transition-all",
-                      pathname === link.href
-                        ? "text-white bg-white/10"
-                        : "text-gray-400 hover:text-white hover:bg-white/5"
-                    )}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                <div className="pt-4">
-                  <Link
-                    href="/contact"
-                    onClick={() => setIsOpen(false)}
-                    className="block w-full text-center px-4 py-4 rounded-2xl text-base font-bold text-white bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink"
-                  >
-                    Let&apos;s Talk
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </nav>
+        {isOpen ? (
+          <div className="border-t border-slate-200 py-4 md:hidden">
+            <div className="grid gap-1">
+              {links.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-md px-3 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <Link
+                href="/contact"
+                onClick={() => setIsOpen(false)}
+                className="mt-2 rounded-md bg-slate-950 px-3 py-3 text-center text-sm font-semibold text-white"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        ) : null}
+        </div>
+      </motion.nav>
+    </header>
   );
 }

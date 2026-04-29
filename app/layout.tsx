@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PageLoader from "@/components/PageLoader";
-import CursorGlow from "@/components/ui/CursorGlow";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -13,8 +11,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "AZUO | Building Scalable Digital Solutions",
-  description: "AZUO is a premium tech brand engineering web apps, SaaS, and automation solutions.",
+  title: "AZUO Technologies | Blockchain, AI and Intelligent Digital Systems",
+  description:
+    "AZUO Technologies develops scalable blockchain infrastructure, AI automation, SaaS platforms, and intelligent software systems for India.",
 };
 
 export default function RootLayout({
@@ -23,11 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} dark`}>
-      <body className="min-h-screen flex flex-col bg-[#0a0a0a] text-white selection:bg-brand-purple/30 overflow-x-hidden">
+    <html lang="en" className={outfit.variable}>
+      <body className="min-h-screen flex flex-col antialiased">
         <SmoothScroll>
-          <PageLoader />
-          <CursorGlow />
           <Navbar />
           <main className="flex-1">
             {children}

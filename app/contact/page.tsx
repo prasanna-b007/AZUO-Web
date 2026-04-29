@@ -1,21 +1,40 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Send, MapPin, Phone, Mail } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { Mail, MapPin, Send } from "lucide-react";
 import { CONTACT_EMAIL } from "@/lib/mail";
 
-export default function ContactPage() {
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
+type FormStatus = "idle" | "submitting" | "success" | "fallback" | "error";
 
-  const handleSubmit = async (e: React.FormEvent) => {
+export default function ContactPage() {
+  const [formStatus, setFormStatus] = useState<FormStatus>("idle");
+  const [mailtoHref, setMailtoHref] = useState(`mailto:${CONTACT_EMAIL}`);
+
+  const statusMessage = useMemo(() => {
+    if (formStatus === "success") return "Message sent successfully.";
+    if (formStatus === "fallback") return "The website mail service is not configured yet. Please send through your email app.";
+    if (formStatus === "error") return "Something went wrong. Please contact AZUO directly by email.";
+    return "";
+  }, [formStatus]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("submitting");
-    
-    try {
-      const formData = new FormData(e.target as HTMLFormElement);
-      const data = Object.fromEntries(formData.entries());
 
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const subject = String(data.subject || "AZUO Technologies enquiry");
+    const body = [
+      `Name: ${data.name || ""}`,
+      `Email: ${data.email || ""}`,
+      "",
+      String(data.message || ""),
+    ].join("\n");
+
+    setMailtoHref(`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+
+    try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,150 +43,91 @@ export default function ContactPage() {
 
       if (response.ok) {
         setFormStatus("success");
+        form.reset();
         setTimeout(() => setFormStatus("idle"), 5000);
-        (e.target as HTMLFormElement).reset();
-      } else {
-        const error = await response.json();
-        alert(error.message || "Failed to send message. Please try again.");
-        setFormStatus("idle");
+        return;
       }
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("Something went wrong. Please try again later.");
-      setFormStatus("idle");
+
+      const result = await response.json().catch(() => ({}));
+      setFormStatus(result.code === "EMAIL_NOT_CONFIGURED" ? "fallback" : "error");
+    } catch {
+      setFormStatus("error");
     }
   };
 
   return (
-    <div className="pt-32 pb-24 relative overflow-hidden">
-      <div className="absolute top-1/4 -left-64 w-96 h-96 bg-brand-blue/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 -right-64 w-96 h-96 bg-brand-purple/10 rounded-full blur-[120px]" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            Let's <span className="text-gradient">Talk</span>
+    <div className="bg-[#f6f8fb] pt-32">
+      <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 pb-24 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-brand-green">Contact</p>
+          <h1 className="text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl">
+            Let&apos;s Build the Future Together
           </h1>
-          <p className="text-xl text-gray-400">
-            Have a project in mind? We'd love to hear about it. Drop us a message and we'll get back to you within 24 hours.
+          <p className="mt-6 text-lg leading-8 text-slate-600">
+            Whether you&apos;re looking to modernize operations, deploy AI systems, develop scalable
+            software, or explore blockchain-powered solutions, AZUO Technologies is ready to collaborate.
           </p>
+
+          <div className="mt-10 grid gap-4">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-5 text-slate-700 shadow-sm hover:text-brand-green">
+              <Mail className="h-5 w-5" />
+              {CONTACT_EMAIL}
+            </a>
+            <div className="flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-5 text-slate-700 shadow-sm">
+              <MapPin className="h-5 w-5 text-brand-green" />
+              India
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="space-y-8"
-          >
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <p className="text-gray-400 mb-8">
-                Reach out to us directly or fill out the form and our team will get back to you promptly.
-              </p>
+        <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          {statusMessage ? (
+            <div
+              className={`mb-6 rounded-md border px-4 py-3 text-sm font-medium ${
+                formStatus === "success"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                  : "border-amber-200 bg-amber-50 text-amber-900"
+              }`}
+            >
+              <p>{statusMessage}</p>
+              {formStatus === "fallback" || formStatus === "error" ? (
+                <a href={mailtoHref} className="mt-2 inline-flex font-semibold underline">
+                  Open email to {CONTACT_EMAIL}
+                </a>
+              ) : null}
             </div>
+          ) : null}
 
-            <div className="space-y-6">
-              
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-glass rounded-xl text-brand-purple">
-                  <Phone className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-foreground font-semibold mb-1">Call Us</h4>
-                  <p className="text-gray-400">9345857136<br />Mon-Fri, 9am-6pm IST</p>
-
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-glass rounded-xl text-brand-pink">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="text-foreground font-semibold mb-1">Email Us</h4>
-                  <p className="text-gray-400">{CONTACT_EMAIL}</p>
-                </div>
-              </div>
+          <form onSubmit={handleSubmit} className="grid gap-5">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
+                Full name
+                <input name="name" required className="min-w-0 rounded-md border border-slate-300 px-4 py-3 outline-none focus:border-brand-green focus:ring-2 focus:ring-emerald-100" placeholder="Your name" />
+              </label>
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
+                Email
+                <input name="email" type="email" required className="min-w-0 rounded-md border border-slate-300 px-4 py-3 outline-none focus:border-brand-green focus:ring-2 focus:ring-emerald-100" placeholder="you@company.com" />
+              </label>
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="bg-glass p-8 rounded-2xl border border-white/5 shadow-2xl relative"
-          >
-            {formStatus === "success" && (
-              <div className="absolute inset-0 bg-background/90 backdrop-blur-sm rounded-2xl flex items-center justify-center z-20 flex-col text-center p-8">
-                <div className="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mb-4">
-                  <Send className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
-                <p className="text-gray-400">Thank you for reaching out. We will get back to you shortly.</p>
-              </div>
-            )}
-            
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
-                    placeholder="john@example.com"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-400 mb-2">Subject</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors"
-                  placeholder="Project Inquiry"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple transition-colors resize-none"
-                  placeholder="Tell us about your project..."
-                />
-              </div>
-              
-              <button
-                type="submit"
-                disabled={formStatus === "submitting"}
-                className="w-full py-4 rounded-lg bg-white text-black font-semibold flex items-center justify-center gap-2 hover:bg-brand-purple hover:text-foreground transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
-              >
-                {formStatus === "submitting" ? "Sending..." : "Send Message"}
-                <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </button>
-            </form>
-          </motion.div>
+            <label className="grid gap-2 text-sm font-medium text-slate-700">
+              Subject
+              <input name="subject" required className="min-w-0 rounded-md border border-slate-300 px-4 py-3 outline-none focus:border-brand-green focus:ring-2 focus:ring-emerald-100" placeholder="AI automation, software, or blockchain project" />
+            </label>
+            <label className="grid gap-2 text-sm font-medium text-slate-700">
+              Message
+              <textarea name="message" required rows={6} className="min-w-0 resize-none rounded-md border border-slate-300 px-4 py-3 outline-none focus:border-brand-green focus:ring-2 focus:ring-emerald-100" placeholder="Tell us what you want to build..." />
+            </label>
+            <button
+              type="submit"
+              disabled={formStatus === "submitting"}
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {formStatus === "submitting" ? "Sending..." : "Schedule a Consultation"}
+              <Send className="h-4 w-4" />
+            </button>
+          </form>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

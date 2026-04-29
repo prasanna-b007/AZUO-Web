@@ -31,7 +31,7 @@ export default function AboutSection() {
             </h2>
             
             <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-              AZUO is a premium digital agency that bridges the gap between complex business challenges and intelligent AI-powered solutions. We don't just build software; we engineer scalability.
+              AZUO is a premium digital agency that bridges the gap between complex business challenges and intelligent AI-powered solutions. We don&apos;t just build software; we engineer scalability.
             </p>
 
             <div className="space-y-6 mb-10">
